@@ -1,0 +1,8 @@
+{
+  "hi": ["Hello!", "chat"],
+  "how are you": ["i'm fine and you", "chat"],
+  "cancel": ["ok we are canceling your order", "cancel"],
+  "speed up": ["ok we are speeding up", "speed-up"],
+  "refil": ["ok we are refilling your orderl", "refil"],
+  "start": ["ok we are startng your job", "start"]
+}
