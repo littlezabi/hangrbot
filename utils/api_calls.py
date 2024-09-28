@@ -1,7 +1,6 @@
 """Make all external api calls from here"""
 
 import requests
-from utils.vars import API_KEY
 from utils.console import Console
 
 
@@ -18,12 +17,16 @@ class API:
         provider = data.get("provider")
         return external_id, provider
 
-    def get_order_details(self, order_id):
+    def get_order_details(self, provider):
         """Get order external data"""
-        url = f"https://usdsmm.com/adminapi/v2/orders/{order_id}"
+        url = provider.get("url")
+        order_id = provider.get("id")
+        api = provider.get("api")
+        url = f"{url}{order_id}"
+
         headers = {
             "Content-Type": "application/json",
-            "X-Api-Key": f"{API_KEY}",
+            "X-Api-Key": f"{api}",
         }
         response = requests.get(url, headers=headers)
         response = response.json()

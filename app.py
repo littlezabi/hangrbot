@@ -4,7 +4,7 @@ import time
 from utils.bot import Bot
 from utils.console import Console
 from utils.messages import Messages
-from utils.vars import wait_between_check_next_chat
+from utils.vars import wait_between_check_next_chat, providers, default_provider
 from utils.api_calls import API
 
 
@@ -65,17 +65,23 @@ class Hangr:
             if chat.get("provider") in self.replied:
                 continue
             self.bot.clear_search_bar()
-            # if self.bot.search_contact(chat.get("provider")):
-            if self.bot.search_contact("Meta AI"):
+
+            prv = chat.get("provider")
+            if not self.bot.confirm_responder_chat(chat.get("contact")):
+                Console(
+                    f"Provider is not confirmed to send message. sending message to default provider ({default_provider})",
+                    "Error",
+                    "Api.send_response",
+                )
+                prv = default_provider
+
+            if self.bot.search_contact(prv):
                 self.bot.send_response(
                     f"""
-                        external_id: {chat.get('external_id')} \n
-                        order_id: {chat.get('order_id')} \n
-                        type: {chat.get('type')}
-                    """
+                        {chat.get('external_id')} - {chat.get('type')}
+                    """,
                 )
                 self.replied.append(chat.get("provider"))
-        print(self.replied)
 
     def start(self):
         """Start the bot by calling this method"""
@@ -105,17 +111,51 @@ class Hangr:
         Console("order id is not exist", "alert", "message.check_order_id")
         return ""
 
-    # def order_cancel(self, response):
+    def get_provider(self, customer_id):
+        """
+        Finds the site configuration based on the provided customer ID.
 
-    # def order_refil(self, response):
-    #     """Handle refil request"""
-    #     self.check_order_id(response)
-    #     Console("Order refil request!", "alert")
+        This function iterates through a dictionary of site configurations,
+        where each site has an associated customer ID range. If the `customer_id`
+        falls within the specified range of any site, the corresponding site details
+        are returned.
 
-    # def order_speed_up(self, response):
-    #     """Handle speed up request"""
-    #     self.check_order_id(response)
-    #     Console("Order speed up request!", "alert")
+        Args:
+            data (dict): A dictionary where the key is the site name (string), and
+                        the value is a dictionary with a `range` (list of two integers)
+                        and a `url` (string).
+            customer_id (int): The customer ID to check against the site ranges.
+
+        Returns:
+            (dict or None): Returns a dictionary containing the matched site and its details
+                        if the customer ID falls within one of the ranges. Returns `None`
+                        if no match is found.
+
+        Example:
+            x = {
+                "usdsmm.com": {
+                    "range": [100000, 500000],
+                    "url": "https://usdsmm.com/adminapi/v2/orders/"
+                },
+                "cashsmm.com": {
+                    "range": [500000, 1000000],
+                    "url": "https://usdsmm.com/adminapi/v2/orders/"
+                },
+                "prixsmm.com": {
+                    "range": [3300000, 100000000],
+                    "url": "https://usdsmm.com/adminapi/v2/orders/"
+                }
+            }
+
+            result = get_matching_site(x, 550000)
+            print(result)
+            # Output: {'cashsmm.com': {'range': [500000, 1000000], 'url': 'https://usdsmm.com/adminapi/v2/orders/'}}
+        """
+        for site, details in providers.items():
+            lower, upper = details["range"]
+            if lower <= int(customer_id) <= upper:
+                return {"provider": site, "url": details["url"], "api": details["API"]}
+        return None
 
     def type_and_request(self, response: str) -> dict:
         """
@@ -126,21 +166,20 @@ class Hangr:
         id_ = self.check_order_id(response)
         if id_ == "":
             self.bot.send_response("Please send your order id......")
-        res_ = self.api.get_order_details(id_)
+        provider = self.get_provider(id_)
+        if not provider:
+            Console(
+                "Range is not matched with customer id.",
+                "error",
+                "Hangr.type_and_request",
+            )
+            return {}
+        res_ = self.api.get_order_details({**provider, "id": id_})
         if res_:
             external_id, provider = self.api.parse_request(res_)
-            print(external_id, provider)
             return {"external_id": external_id, "provider": provider}
         Console(f"Order {type_} request!", "alert")
         return {}
-        # if response.get("type") == "cancel":
-        #     return self.order_cancel(response)
-
-        # if response.get("type") == "speed-up":
-        #     self.order_speed_up(response)
-
-        # if response.get("type") == "refil":
-        #     self.order_refil(response)
 
     def __repr__(self) -> str:
         return "Main class of HangrBot..."

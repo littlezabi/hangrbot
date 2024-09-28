@@ -1,2 +1,3 @@
 /profile
 *.zip
+__pycache__

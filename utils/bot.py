@@ -69,7 +69,20 @@ class Bot:
         self.clear_search_bar()
         return []
 
-    def send_response(self, message):
+    def confirm_responder_chat(self, provider: str):
+        """
+        Confirm that the provider chat is actually the real chat or not.
+        its check the name of the provider to the title of the current chat.
+        """
+        title = self.driver.find_element(
+            "#main > header > div._amie > div._amif > div > div > span"
+        )
+        if title.text == provider:
+            return True
+        return False
+
+    # document.querySelector().innerText
+    def send_response(self, message: str):
         """
         Send message to a person.
         Select the message input box and type the message

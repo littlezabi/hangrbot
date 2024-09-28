@@ -12,11 +12,12 @@ with open("./config.json", "r", encoding="utf-8") as f:
     wait_normal_switch_after = config["TIMES"]["wait_normal_switch_after"]
     check_for_new_messages_after = config["TIMES"]["check_for_new_messages_after"]
     wait_between_check_next_chat = config["TIMES"]["wait_between_check_next_chat"]
-    API_KEY = config["api_key"]
     driver_path = config["PATHS"]["driver_path"]
     profile_path = config["PATHS"]["profile_path"]
     browser_path = config["PATHS"]["browser_path"]
     responses_file = config["PATHS"]["responses_file"]
+    providers = config["PROVIDERS"]
+    default_provider = config["default_provider"]
 
 
 def check_profile():

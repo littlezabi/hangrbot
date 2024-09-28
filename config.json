@@ -1,5 +1,4 @@
 {
-  "api_key": "0zztaefywmkdy2zedlefcc4bbyu2okrukeli5kdr9p6lh2k0sq9u09hgfmrze0r7",
   "TIMES": {
     "wait_after_page_load": 2,
     "wait_to_load_chats": 2,
@@ -12,5 +11,23 @@
     "responses_file": "./assets/responses.json",
     "profile_path": "F:\\Python\\HangrBot\\profile\\",
     "browser_path": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
-  }
+  },
+  "PROVIDERS": {
+    "usdsmm.com": {
+      "range": [100000, 500000],
+      "url": "https://usdsmm.com/adminapi/v2/orders/",
+      "API": "0zztaefywmkdy2zedlefcc4bbyu2okrukeli5kdr9p6lh2k0sq9u09hgfmrze0r7"
+    },
+    "cashsmm.com": {
+      "range": [500000, 1000000],
+      "url": "https://cashsmm.com/adminapi/v2/orders/",
+      "API": "0zztaefywmkdy2zedlefcc4bbyu2okrukeli5kdr9p6lh2k0sq9u09hgfmrze0r7"
+    },
+    "prixsmm.com": {
+      "range": [3300000, 100000000],
+      "url": "https://prixsmm.com/adminapi/v2/orders/",
+      "API": "0zztaefywmkdy2zedlefcc4bbyu2okrukeli5kdr9p6lh2k0sq9u09hgfmrze0r7"
+    }
+  },
+  "default_provider": "+92 316 2291417"
 }
