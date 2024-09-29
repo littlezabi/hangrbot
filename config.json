@@ -9,24 +9,24 @@
   "PATHS": {
     "driver_path": "",
     "responses_file": "./assets/responses.json",
-    "profile_path": "F:\\Python\\HangrBot\\profile\\",
+    "profile_path": "C:\\hangr_profile\\",
     "browser_path": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
   },
   "PROVIDERS": {
     "usdsmm.com": {
       "range": [100000, 500000],
       "url": "https://usdsmm.com/adminapi/v2/orders/",
-      "API": "0zztaefywmkdy2zedlefcc4bbyu2okrukeli5kdr9p6lh2k0sq9u09hgfmrze0r7"
+      "API": "qfqtngzh8p0155ojpiae2bwd4w5tk50nqmj49hkqwi70uzfmaxt5gh1ahbhxa7ym"
     },
     "cashsmm.com": {
       "range": [500000, 1000000],
       "url": "https://cashsmm.com/adminapi/v2/orders/",
-      "API": "0zztaefywmkdy2zedlefcc4bbyu2okrukeli5kdr9p6lh2k0sq9u09hgfmrze0r7"
+      "API": "ezwo98ai58e80qhzxiibf1pyb8a4azmgqacdzrql390urfm2ji6jnyb0boaccrj4"
     },
     "prixsmm.com": {
       "range": [3300000, 100000000],
       "url": "https://prixsmm.com/adminapi/v2/orders/",
-      "API": "0zztaefywmkdy2zedlefcc4bbyu2okrukeli5kdr9p6lh2k0sq9u09hgfmrze0r7"
+      "API": "4xcqonled2d2sgr7aimfe8x547gh6y0i6qbjgbicweg6fgkbio2aendaohxtf2r3"
     }
   },
   "default_provider": "+92 316 2291417"
