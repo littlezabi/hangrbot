@@ -40,7 +40,11 @@ class Hangr:
                                 f"Failed to get external id from api request: {last_msg}. "
                             )
                             continue
-                        self.bot.send_response(last_msg.get("response"))
+                        self.bot.send_response(
+                            last_msg.get("response").replace(
+                                "**", last_msg.get("order_id")
+                            )
+                        )
                         self.replied.append(chats)
                         self.pendings.append(
                             {
@@ -51,7 +55,6 @@ class Hangr:
                                 **last_msg,
                             }
                         )
-                        # {"external_id": external_id, "provider": provider}
                 else:
                     Console("There is no chats found!", "alert", "App.start")
             contacts.pop(iter_)
@@ -69,7 +72,8 @@ class Hangr:
             prv = chat.get("provider")
             if not self.bot.confirm_responder_chat(chat.get("contact")):
                 Console(
-                    f"Provider is not confirmed to send message. sending message to default provider ({default_provider})",
+                    f"""Provider is not confirmed to send message.
+                    sending message to default provider ({default_provider})""",
                     "Error",
                     "Api.send_response",
                 )

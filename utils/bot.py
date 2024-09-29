@@ -75,7 +75,7 @@ class Bot:
         its check the name of the provider to the title of the current chat.
         """
         title = self.driver.find_element(
-            "#main > header > div._amie > div._amif > div > div > span"
+            By.XPATH, '//*[@id="main"]/header/div[2]/div/div/div/span'
         )
         if title.text == provider:
             return True
@@ -155,6 +155,7 @@ class Bot:
 
     def search_contact(self, contact: str) -> bool:
         """Search for the contact"""
+        contact = contact.replace(".com", "")
         time.sleep(2)
         try:
             search_box = self.clear_search_bar()
