@@ -70,7 +70,7 @@ class Hangr:
             self.bot.clear_search_bar()
 
             prv = chat.get("provider")
-            if not self.bot.confirm_responder_chat(chat.get("contact")):
+            if not self.bot.confirm_responder_chat(prv):
                 Console(
                     f"""Provider is not confirmed to send message.
                     sending message to default provider ({default_provider})""",
@@ -159,7 +159,6 @@ class Hangr:
             return None
         for site, details in providers.items():
             lower, upper = details["range"]
-            print(customer_id, type(customer_id), f"{customer_id}")
             if lower <= int(customer_id) <= upper:
                 return {"provider": site, "url": details["url"], "api": details["API"]}
         return None
