@@ -7,7 +7,7 @@
     "wait_between_check_next_chat": 2
   },
   "PATHS": {
-    "driver_path": "./assets/msedgedriver.exe",
+    "driver_path": "",
     "responses_file": "./assets/responses.json",
     "profile_path": "F:\\Python\\HangrBot\\profile\\",
     "browser_path": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"

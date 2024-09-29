@@ -151,8 +151,11 @@ class Hangr:
             print(result)
             # Output: {'cashsmm.com': {'range': [500000, 1000000], 'url': 'https://usdsmm.com/adminapi/v2/orders/'}}
         """
+        if customer_id == "":
+            return None
         for site, details in providers.items():
             lower, upper = details["range"]
+            print(customer_id, type(customer_id), f"{customer_id}")
             if lower <= int(customer_id) <= upper:
                 return {"provider": site, "url": details["url"], "api": details["API"]}
         return None

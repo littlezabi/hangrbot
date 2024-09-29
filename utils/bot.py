@@ -17,7 +17,7 @@ from utils.vars import (
 
 
 class Bot:
-    """Bot related methods is exsit here"""
+    """Bot related methods is exist here"""
 
     def __init__(self) -> None:
         options = Options()
