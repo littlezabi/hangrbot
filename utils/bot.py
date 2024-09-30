@@ -74,9 +74,19 @@ class Bot:
         Confirm that the provider chat is actually the real chat or not.
         its check the name of the provider to the title of the current chat.
         """
-        title = self.driver.find_element(
-            By.XPATH, '//*[@id="main"]/header/div[2]/div/div/div/span'
-        )
+        title = False
+        try:
+            title = self.driver.find_element(
+                By.XPATH, '//*[@id="main"]/header/div[2]/div/div/div/span'
+            )
+        except Exception as _:
+            try:
+                title = self.driver.find_element(
+                    By.XPATH, '//*[@id="main"]/header/div[2]/div[1]/div/span'
+                )
+            except Exception as __:
+                title = False
+
         return provider.lower().strip() == title.text.lower().strip()
 
     # document.querySelector().innerText
