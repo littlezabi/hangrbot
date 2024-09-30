@@ -40,6 +40,8 @@ class Hangr:
                                 f"Failed to get external id from api request: {last_msg}. "
                             )
                             continue
+
+                        # sending message to client
                         self.bot.send_response(
                             last_msg.get("response").replace(
                                 "**", last_msg.get("order_id")
@@ -62,24 +64,24 @@ class Hangr:
             time.sleep(wait_between_check_next_chat)
 
     def send_to_provider(self):
-        """Send message to provider"""
+        """Send message to provider using `self.pendings`."""
         self.bot.switch_between_tabs("all")
         for chat in self.pendings:
+            # chat["provider"] = "meta ai"
             if chat.get("provider") in self.replied:
                 continue
             self.bot.clear_search_bar()
-
-            prv = chat.get("provider")
-            if not self.bot.confirm_responder_chat(prv):
-                Console(
-                    f"""Provider is not confirmed to send message.
-                    sending message to default provider ({default_provider})""",
-                    "Error",
-                    "Api.send_response",
-                )
-                prv = default_provider
-
-            if self.bot.search_contact(prv):
+            if self.bot.search_contact(chat.get("provider")):
+                if not self.bot.confirm_responder_chat(chat.get("provider")):
+                    Console(
+                        f"""Provider is not confirmed to send message.
+                        sending message to default provider ({default_provider})""",
+                        "Error",
+                        "Api.send_response",
+                    )
+                    self.bot.search_contact(default_provider)
+                    if not self.bot.confirm_responder_chat(default_provider):
+                        continue
                 self.bot.send_response(
                     f"""
                         {chat.get('external_id')} - {chat.get('type')}

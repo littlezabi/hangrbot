@@ -77,9 +77,7 @@ class Bot:
         title = self.driver.find_element(
             By.XPATH, '//*[@id="main"]/header/div[2]/div/div/div/span'
         )
-        if title.text == provider:
-            return True
-        return False
+        return provider.lower().strip() == title.text.lower().strip()
 
     # document.querySelector().innerText
     def send_response(self, message: str):
