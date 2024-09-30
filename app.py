@@ -67,6 +67,7 @@ class Hangr:
         """Send message to provider using `self.pendings`."""
         self.bot.switch_between_tabs("all")
         for chat in self.pendings:
+            chat["provider"] = chat.get("provider").replace(".com", "")
             # chat["provider"] = "meta ai"
             if chat.get("provider") in self.replied:
                 continue

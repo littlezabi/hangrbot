@@ -163,7 +163,6 @@ class Bot:
 
     def search_contact(self, contact: str) -> bool:
         """Search for the contact"""
-        contact = contact.replace(".com", "")
         time.sleep(2)
         try:
             search_box = self.clear_search_bar()
