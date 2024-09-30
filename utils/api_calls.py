@@ -2,6 +2,7 @@
 
 import requests
 from utils.console import Console
+import pprint
 
 
 class API:

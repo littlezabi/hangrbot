@@ -74,7 +74,7 @@ class Hangr:
             if self.bot.search_contact(chat.get("provider")):
                 if not self.bot.confirm_responder_chat(chat.get("provider")):
                     Console(
-                        f"""Provider is not confirmed to send message.
+                        f"""Provider ({chat.get('provider')}) is not confirmed to send message.
                         sending message to default provider ({default_provider})""",
                         "Error",
                         "Api.send_response",
