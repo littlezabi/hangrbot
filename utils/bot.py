@@ -13,6 +13,7 @@ from utils.vars import (
     wait_after_page_load,
     check_for_new_messages_after,
     wait_to_load_chats,
+    providers,
 )
 
 
@@ -69,7 +70,7 @@ class Bot:
         self.clear_search_bar()
         return []
 
-    def confirm_responder_chat(self, provider: str):
+    def confirm_responder_chat(self, provider: str, compare_default_provider=False):
         """
         Confirm that the provider chat is actually the real chat or not.
         its check the name of the provider to the title of the current chat.
@@ -85,9 +86,12 @@ class Bot:
                     By.XPATH, '//*[@id="main"]/header/div[2]/div[1]/div/span'
                 )
             except Exception as __:
-                title = False
-
-        return provider.lower().strip() == title.text.lower().strip()
+                return False
+        if compare_default_provider:
+            if title.text in providers.keys():
+                return False
+            return True
+        return provider.lower().strip() in title.text.lower().strip()
 
     # document.querySelector().innerText
     def send_response(self, message: str):

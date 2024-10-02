@@ -1,10 +1,10 @@
 {
   "TIMES": {
     "wait_after_page_load": 2,
-    "wait_to_load_chats": 2,
+    "wait_to_load_chats": 1,
     "wait_normal_switch_after": 1,
     "check_for_new_messages_after": 3,
-    "wait_between_check_next_chat": 2
+    "wait_between_check_next_chat": 1
   },
   "PATHS": {
     "driver_path": "",

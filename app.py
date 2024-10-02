@@ -68,7 +68,7 @@ class Hangr:
         self.bot.switch_between_tabs("all")
         for chat in self.pendings:
             chat["provider"] = chat.get("provider").replace(".com", "")
-            # chat["provider"] = "meta ai"
+            chat["provider"] = "ytiwox"
             if chat.get("provider") in self.replied:
                 continue
             self.bot.clear_search_bar()
@@ -81,7 +81,9 @@ class Hangr:
                         "Api.send_response",
                     )
                     self.bot.search_contact(default_provider)
-                    if not self.bot.confirm_responder_chat(default_provider):
+                    if not self.bot.confirm_responder_chat(
+                        default_provider, compare_default_provider=True
+                    ):
                         continue
                 self.bot.send_response(
                     f"""
