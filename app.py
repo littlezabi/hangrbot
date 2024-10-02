@@ -68,7 +68,6 @@ class Hangr:
         self.bot.switch_between_tabs("all")
         for chat in self.pendings:
             chat["provider"] = chat.get("provider").replace(".com", "")
-            chat["provider"] = "ytiwox"
             if chat.get("provider") in self.replied:
                 continue
             self.bot.clear_search_bar()
@@ -175,8 +174,12 @@ class Hangr:
         """
         type_ = response.get("type")
         id_ = self.check_order_id(response)
+        if type_ == "chat":
+            self.bot.send_response(response.get("response"))
+            return {}
         if id_ == "":
             self.bot.send_response("Please send your order id......")
+            return {}
         provider = self.get_provider(id_)
         if not provider:
             Console(
